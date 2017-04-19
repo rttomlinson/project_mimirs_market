@@ -6,27 +6,47 @@ const Category = require('../models/sequelize').Category;
 
 
 router.get('/', (req, res, next) => {
+    let formInfo = req.query.form;
+    let search = formInfo.search;
+    let minPrice = formInfo.minPrice;
+    let maxPrice = formInfo.maxPrice;
+    let category = formInfo.category;
+
+
+
     //homepage - products display
     let categories;
 
     Category.findAll({
-      attributes: ['name'],
-      raw: true
-    })
-      .then((_categories) => {
-        categories = _categories.map((el) => {
-          return el.name;
-        });
-      })
-      .then(() => {
-        return Product.findAll({
-          raw: true
+            attributes: ['name'],
+            raw: true
         })
-      })  
-      .then((products) => {
-          res.render('products/index', {products, categories});
-      })
-      .catch((err) => next(err));
+        .then((_categories) => {
+            categories = _categories.map((el) => {
+                return el.name;
+            });
+        })
+        .then(() => {
+            return Product.findAll({
+                where: {
+                    name: {
+                        $iLike: `%${search}%`
+                    },
+                    price: {
+                        $between: [minPrice, maxPrice]
+                    },
+                    category_id: category,
+                    raw: true
+                }
+            });
+        })
+        .then((products) => {
+            res.render('products/index', {
+                products,
+                categories
+            });
+        })
+        .catch((err) => next(err));
 });
 
 
