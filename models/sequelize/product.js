@@ -15,6 +15,19 @@ module.exports = function(sequelize, DataTypes) {
                     foreignKey: "category_id"
                 });
             }
+
+            defaultSearchValue: function() {
+                return '';
+            }
+
+            defaultMinValue: function() {
+                return 0;
+            }
+
+            defaultMaxValue: function() {
+                return 1000;
+            }
+
         }
     });
     return Product;

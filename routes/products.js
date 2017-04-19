@@ -28,6 +28,7 @@ router.get('/', (req, res, next) => {
         })
         .then(() => {
             return Product.findAll({
+                include: [{model: Category}],
                 where: {
                     name: {
                         $iLike: `%${search}%`
@@ -35,12 +36,13 @@ router.get('/', (req, res, next) => {
                     price: {
                         $between: [minPrice, maxPrice]
                     },
-                    category_id: category,
+                    category_id: {in: [category].length ? [category] : Category.defaultValues(),
                     raw: true
                 }
             });
         })
         .then((products) => {
+          console.log(products)
             res.render('products/index', {
                 products,
                 categories

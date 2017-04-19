@@ -1,13 +1,15 @@
 'use strict';
 let db = require('../../models/sequelize');
 let faker = require('faker');
+let Category = db.Category;
+let defaultCategories = Category.defaultCategory();
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
     let categories = []
       for (let i = 0; i < 4; i++) {
           categories.push({
-              name: faker.commerce.department(),
+              name: defaultCategories[i]
           });
       }
 

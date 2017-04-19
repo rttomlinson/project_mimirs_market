@@ -10,6 +10,10 @@ module.exports = function(sequelize, DataTypes) {
                     foreignKey: "category_id"
                 });
             }
+
+            defaultCategory: function() {
+                return ['toys', 'cars', 'electronics', 'beauty'];
+            }
         }
     });
     return Category;
