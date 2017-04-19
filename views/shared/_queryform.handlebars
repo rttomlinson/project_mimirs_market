@@ -1,0 +1,34 @@
+<div class="row">
+
+    <form action="/products" method="get">
+        <!-- Product Search -->
+        <div class="form-group">
+            <label for="search">Product</label>
+            <input type="search" class="form-control" name="form[search]" id="search">
+        </div>
+
+        <!-- Product Price -->
+        <div class="form-group">
+            <label for="minPrice">Minimum Price</label>
+            <input type="number" class="form-control" name="form[minPrice]" id="minPrice" min="0" max="999">
+        </div>
+        <div class="form-group">
+            <label for="maxPrice">Maximum Price</label>
+            <input type="number" class="form-control" name="form[maxPrice]" id="maxPrice" min="0" max="999">
+        </div>
+
+        <!-- Category -->
+        <div class="form-group">
+            <label for="category">Select Category</label>
+            <select class="form-control" id="category" name="form[category]">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-info">CONSUME</button>
+    </form>
+</div>

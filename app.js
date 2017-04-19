@@ -54,8 +54,8 @@ app.use(express.static(__dirname + "/public"));
 ////////////////////////////////////////////
 //Routers
 /////////////////////////////////////////////
-const router = require('./routes/products');
-app.use('/products', router);
+const productsRouter = require('./routes/products');
+app.use('/products', productsRouter);
 
 
 
