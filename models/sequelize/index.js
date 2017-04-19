@@ -10,7 +10,7 @@ var env = process.env.NODE_ENV || 'development';
 if (env !== 'production') {
     require('dotenv').config();
 }
-var config = require(__dirname + '/../../config/sequelize.json')[env];
+var config = require(__dirname + '/../../config/sequelize.js')[env];
 var db = {};
 
 if (config.use_env_variable) {

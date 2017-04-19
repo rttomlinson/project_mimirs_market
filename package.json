@@ -13,7 +13,9 @@
         "mg:seed": "node seeds/mongoose",
         "console": "node repl.js",
         "c": "node repl.js",
-        "sql": "./node_modules/sequelize-cli/bin/sequelize"
+        "sql": "./node_modules/sequelize-cli/bin/sequelize",
+        "start": "node app.js",
+        "start-dev": "./node_modules/nodemon/bin/nodemon app.js"
     },
     "repository": {
         "type": "git",
@@ -27,7 +29,10 @@
     },
     "homepage": "https://github.com/rttomlinson/project_mimirs_market#readme",
     "dependencies": {
+        "body-parser": "^1.17.1",
         "express": "^4.15.2",
+        "express-handlebars": "^3.0.0",
+        "express-session": "^1.15.2",
         "mongoose": "^4.9.5",
         "path": "^0.12.7",
         "pg": "^6.1.5",
@@ -36,6 +41,8 @@
         "sequelize-cli": "^2.7.0"
     },
     "devDependencies": {
-        "dotenv": "^4.0.0"
+        "dotenv": "^4.0.0",
+        "faker": "^4.1.0",
+        "nodemon": "^1.11.0"
     }
 }
