@@ -7,10 +7,24 @@ const Category = require('../models/sequelize').Category;
 
 router.get('/', (req, res, next) => {
     let formInfo = req.query.form;
-    let search = formInfo.search;
-    let minPrice = formInfo.minPrice;
-    let maxPrice = formInfo.maxPrice;
-    let category = formInfo.category;
+    let search;
+    let minPrice;
+    let maxPrice;
+    let category;
+    if (!formInfo) {
+        search = Product.defaultSearchValue();
+        minPrice = Product.defaultMinValue();
+        maxPrice = Product.defaultMaxValue();
+        category = Category.defaultCategory();
+
+    }
+    else {
+        search = formInfo.search || Product.defaultSearchValue();
+        minPrice = formInfo.minPrice || Product.defaultMinValue();
+        maxPrice = formInfo.maxPrice || Product.defaultMaxValue();
+        category = formInfo.category || Category.defaultCategory();
+
+    }
 
 
 
@@ -28,7 +42,13 @@ router.get('/', (req, res, next) => {
         })
         .then(() => {
             return Product.findAll({
-                include: [{model: Category}],
+                include: [{
+                    model: Category,
+                    where: {
+                        name: { in: [category]
+                        }
+                    }
+                }],
                 where: {
                     name: {
                         $iLike: `%${search}%`
@@ -36,13 +56,11 @@ router.get('/', (req, res, next) => {
                     price: {
                         $between: [minPrice, maxPrice]
                     },
-                    category_id: {in: [category].length ? [category] : Category.defaultValues(),
                     raw: true
                 }
             });
         })
         .then((products) => {
-          console.log(products)
             res.render('products/index', {
                 products,
                 categories

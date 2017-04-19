@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
                 Category.hasMany(models.Product, {
                     foreignKey: "category_id"
                 });
-            }
+            },
 
             defaultCategory: function() {
                 return ['toys', 'cars', 'electronics', 'beauty'];
