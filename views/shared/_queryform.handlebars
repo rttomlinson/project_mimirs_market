@@ -20,6 +20,7 @@
         <div class="form-group">
             <label for="category">Select Category</label>
             <select class="form-control" id="category" name="form[category]">
+            <option>all</option>
             {{#each categories as |category|}}
               <option>{{category}}</option>
             {{/each}}

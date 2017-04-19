@@ -16,17 +16,23 @@ router.get('/', (req, res, next) => {
         minPrice = Product.defaultMinValue();
         maxPrice = Product.defaultMaxValue();
         category = Category.defaultCategory();
-
     }
     else {
         search = formInfo.search || Product.defaultSearchValue();
         minPrice = formInfo.minPrice || Product.defaultMinValue();
         maxPrice = formInfo.maxPrice || Product.defaultMaxValue();
-        category = formInfo.category || Category.defaultCategory();
-
+        if(formInfo.category && formInfo.category === "all") {
+          category = Category.defaultCategory();
+        } else if (formInfo.category) {
+          category = formInfo.category;
+        } else {
+          category = Category.defaultCategory();
+        }
     }
 
-
+    if(!Array.isArray(category)){
+      category = [category];
+    }
 
     //homepage - products display
     let categories;
@@ -45,7 +51,7 @@ router.get('/', (req, res, next) => {
                 include: [{
                     model: Category,
                     where: {
-                        name: { in: [category]
+                        name: { in: category
                         }
                     }
                 }],
@@ -55,12 +61,14 @@ router.get('/', (req, res, next) => {
                     },
                     price: {
                         $between: [minPrice, maxPrice]
-                    },
-                    raw: true
-                }
+                    }
+                },
+                raw: true
             });
         })
         .then((products) => {
+          //if no products send flash message
+          req.flash('alert', 'No products!!!!!');
             res.render('products/index', {
                 products,
                 categories
