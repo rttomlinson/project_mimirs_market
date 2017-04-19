@@ -2,7 +2,7 @@ var path = require('path');
 
 // Set options
 var config = {
-  "config": "./config/sequelize.json",
+  "config": "./config/sequelize.js",
   "migrations-path": "./migrations/sequelize",
   "seeders-path": "./seeds/sequelize",
   "models-path": "./models/sequelize"
