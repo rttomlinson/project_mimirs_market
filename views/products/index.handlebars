@@ -1,0 +1,19 @@
+<div class="row">
+  {{#each products as |product|}}
+  
+    <a href="{{ productPath product.id }}">
+        <div class="col-xs-4">
+          <div class="product-image">
+            <img class="" src="{{ product.image_url }}">
+          </div>
+          <div>
+            {{ product.name }}
+          </div>
+        </div>
+    </a>
+    <form action="/cart" method="post"> 
+    <input type="hidden" name="{{product.id}}">
+      <button type="submit">Add to Cart</button>
+    </form>
+  {{/each}}
+</div>

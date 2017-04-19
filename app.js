@@ -17,10 +17,12 @@ app.use(bodyParser.urlencoded({
 ////////////////////////////////////////////
 //Template Engine
 /////////////////////////////////////////////
+const helpers = require('./helpers');
 const expressHandlebars = require('express-handlebars');
 var hbs = expressHandlebars.create({
     partialsDir: 'views/',
-    defaultLayout: 'layout'
+    defaultLayout: 'layout',
+    helpers: helpers.registered
 });
 
 app.engine('handlebars', hbs.engine);
@@ -52,7 +54,8 @@ app.use(express.static(__dirname + "/public"));
 ////////////////////////////////////////////
 //Routers
 /////////////////////////////////////////////
-
+const router = require('./routes/products');
+app.use('/products', router);
 
 
 
