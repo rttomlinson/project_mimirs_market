@@ -1,0 +1,45 @@
+{
+    "name": "project_mimirs_market",
+    "version": "1.0.0",
+    "description": "A Viking eCommerce store for Thunder Gods that like to buy \"Antique Wooden Pizzas\"",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        // Usual commands now namespaced
+        "sql:migrate:undo": "npm run sql db:migrate:undo:all",
+        "sql:migrate": "npm run sql db:migrate",
+        "sql:seed:undo": "npm run sql db:seed:undo:all",
+        "sql:seed": "npm run sql db:seed:all",
+
+        // Shorter convenience command to run
+        // migrations and seeds
+        "sql:s": "npm run sql:migrate:undo && npm run sql:migrate && npm run sql:seed",
+
+        // MongoDB specific seeding
+        "mg:seed": "node seeds/mongoose",
+
+        // Same stuff here
+        "console": "node repl.js",
+        "c": "node repl.js",
+        "sql": "./node_modules/sequelize-cli/bin/sequelize"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rttomlinson/project_mimirs_market.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/rttomlinson/project_mimirs_market/issues"
+    },
+    "homepage": "https://github.com/rttomlinson/project_mimirs_market#readme",
+    "dependencies": {
+        "mongoose": "^4.9.5",
+        "path": "^0.12.7",
+        "pg": "^6.1.5",
+        "pg-hstore": "^2.3.2",
+        "sequelize": "^3.30.4",
+        "sequelize-cli": "^2.7.0"
+    }
+}
