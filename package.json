@@ -15,7 +15,7 @@
         "c": "node repl.js",
         "sql": "./node_modules/sequelize-cli/bin/sequelize",
         "start": "node app.js",
-        "start-dev": "./node_modules/nodemon/bin/nodemon app.js"
+        "start-dev": "./node_modules/nodemon/bin/nodemon.js app.js"
     },
     "repository": {
         "type": "git",
