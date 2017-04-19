@@ -1,10 +1,15 @@
 'use strict';
 
+
+
 var fs = require('fs');
 var path = require('path');
 var Sequelize = require('sequelize');
 var basename = path.basename(module.filename);
 var env = process.env.NODE_ENV || 'development';
+if (env !== 'production') {
+    require('dotenv').config();
+}
 var config = require(__dirname + '/../../config/sequelize.json')[env];
 var db = {};
 

@@ -2,7 +2,7 @@
     "name": "project_mimirs_market",
     "version": "1.0.0",
     "description": "A Viking eCommerce store for Thunder Gods that like to buy \"Antique Wooden Pizzas\"",
-    "main": "index.js",
+    "main": "app.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "sql:migrate:undo": "npm run sql db:migrate:undo:all",
@@ -27,11 +27,15 @@
     },
     "homepage": "https://github.com/rttomlinson/project_mimirs_market#readme",
     "dependencies": {
+        "express": "^4.15.2",
         "mongoose": "^4.9.5",
         "path": "^0.12.7",
         "pg": "^6.1.5",
         "pg-hstore": "^2.3.2",
         "sequelize": "^3.30.4",
         "sequelize-cli": "^2.7.0"
+    },
+    "devDependencies": {
+        "dotenv": "^4.0.0"
     }
 }
