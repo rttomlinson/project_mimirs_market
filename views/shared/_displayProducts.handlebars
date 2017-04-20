@@ -1,5 +1,5 @@
 {{#each products as |product|}}
-    <div class="col-xs-4">
+    <div class="{{ xsColWidth ../colWidth }}">
         <a href="{{ productPath product.id }}">
             <div class="product-image">
                 <img class="img-responsive" src="{{ product.image_url }}">
@@ -11,8 +11,9 @@
                 {{ product.price }}
             </div>
         </a>
-        <form action="/cart" method="post">
-            <input type="hidden" name="{{product.id}}">
+        <form action="{{cartIncPath product.id}}" method="post">
+            <input type="hidden" name="name" value="{{product.name}}">
+            <input type="hidden" name="price" value="{{product.price}}">
             <button type="submit">Add to Cart</button>
         </form>
     </div>

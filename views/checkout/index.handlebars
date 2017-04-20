@@ -1,0 +1,53 @@
+<h2>Checkout</h2>
+<div class="row">
+    <div class="{{ xsColWidth 5 }}">
+        <h3>Billing Info</h3>
+
+        <form action="/checkout" method="post" id="billing-info">
+
+            <!-- User First Name -->
+            <div class="form-group">
+                <label for="fname">First name</label>
+                <input type="text" class="form-control" name="form[fname]" id="fname">
+            </div>
+            <!-- User Last Name -->
+            <div class="form-group">
+                <label for="lname">Last name</label>
+                <input type="text" class="form-control" name="form[lname]" id="lname">
+            </div>
+            <!-- User Email -->
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" name="form[email]" id="email">
+            </div>
+            <!-- User Address -->
+            <div class="form-group">
+                <label for="street">Street</label>
+                <input type="text" class="form-control" name="form[address][street]" id="street">
+            </div>
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" class="form-control" name="form[address][city]" id="city">
+            </div>
+            <div class="form-group">
+                <label for="state">State</label>
+                <input type="text" class="form-control" name="form[address][state]" id="state">
+            </div>
+        </form>
+
+    </div>
+    <div class={{ xsColWidth 5 }}>
+        <h3>Order Items</h3>
+        {{#each currentUser.cart as |product| }}
+        <div>
+            {{product.name}} : {{product.price}} x {{product.quantity}} = {{ itemSubtotal product.price product.quantity}}
+        </div>
+        {{/each}}
+        <div>
+            Grand total: {{ itemsTotal currentUser.cart }}
+        </div>
+        <a href="{{ cartPath }}" class="btn btn-danger">Return to cart</a>
+        <button type="submit" class="btn btn-info" form="billing-info">Submit payment</button>
+
+    </div>
+</div>
