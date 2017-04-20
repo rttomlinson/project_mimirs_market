@@ -1,25 +1,5 @@
-{{> shared/_flash }}
-{{> shared/_queryform }}
+{{> shared/_flash }} {{> shared/_queryform }}
 
 <div class="row">
-    {{#each products as |product|}}
-        <div class="col-xs-4">
-            <a href="{{ productPath product.id }}">
-                <div class="product-image">
-                    <img class="" src="{{ product.image_url }}">
-                </div>
-                <div>
-                    {{ product.name }}
-                </div>
-                <div>
-                    {{ product.price }}
-                </div>
-            </a>
-            <form action="/cart" method="post">
-                <input type="hidden" name="{{product.id}}">
-                <button type="submit">Add to Cart</button>
-            </form>
-        </div>
-
-    {{/each}}
+    {{> shared/_displayProducts products=products}}
 </div>

@@ -5,34 +5,12 @@ const Product = require('../models/sequelize').Product;
 const Category = require('../models/sequelize').Category;
 
 
-router.get('/', (req, res, next) => {
-    let formInfo = req.query.form;
-    let search;
-    let minPrice;
-    let maxPrice;
-    let category;
-    if (!formInfo) {
-        search = Product.defaultSearchValue();
-        minPrice = Product.defaultMinValue();
-        maxPrice = Product.defaultMaxValue();
-        category = Category.defaultCategory();
-    }
-    else {
-        search = formInfo.search || Product.defaultSearchValue();
-        minPrice = formInfo.minPrice || Product.defaultMinValue();
-        maxPrice = formInfo.maxPrice || Product.defaultMaxValue();
-        if(formInfo.category && formInfo.category === "all") {
-          category = Category.defaultCategory();
-        } else if (formInfo.category) {
-          category = formInfo.category;
-        } else {
-          category = Category.defaultCategory();
-        }
-    }
-
-    if(!Array.isArray(category)){
-      category = [category];
-    }
+router.get('/', parseQueryData, (req, res, next) => {
+    //Get data from query form
+    let category = req.query.form.category;
+    let search = req.query.form.search;
+    let minPrice = req.query.form.minPrice;
+    let maxPrice = req.query.form.maxPrice;
 
     //homepage - products display
     let categories;
@@ -67,8 +45,10 @@ router.get('/', (req, res, next) => {
             });
         })
         .then((products) => {
-          //if no products send flash message
-          req.flash('alert', 'No products!!!!!');
+            //if no products send flash message
+            if (!products.length) {
+                req.flash('alert', 'No products!!!!!');
+            }
             res.render('products/index', {
                 products,
                 categories
@@ -79,6 +59,60 @@ router.get('/', (req, res, next) => {
 
 
 
+router.get('/:id', function(req, res, next) {
+    let productId = req.params.id;
+    let product;
+    Product.findById(productId, {
+            raw: true
+        })
+        .then((mainProduct) => {
+            product = mainProduct;
+            return Product.findAll({
+                where: {
+                    category_id: product.category_id,
+                    id: {
+                        $ne: product.id
+                    }
+                },
+                limit: 3
+            });
+        })
+        .then(suggestedProducts => {
+            res.render('products/show', {
+                product,
+                suggestedProducts
+            });
+        })
+        .catch(next);
+});
 
 
 module.exports = router;
+
+function parseQueryData(req, res, next) {
+    if (req.query.form) {
+        req.query.form.search = req.query.form.search || Product.defaultSearchValue();
+        req.query.form.minPrice = req.query.form.minPrice || Product.defaultMinValue();
+        req.query.form.maxPrice = req.query.form.maxPrice || Product.defaultMaxValue();
+        if (req.query.form.category) {
+            if (req.query.form.category === "all") {
+                req.query.form.category = Category.defaultCategory();
+            }
+        }
+        else {
+            req.query.form.category = Category.defaultCategory();
+        }
+    }
+    else {
+        req.query.form = {};
+        req.query.form.search = Product.defaultSearchValue();
+        req.query.form.minPrice = Product.defaultMinValue();
+        req.query.form.maxPrice = Product.defaultMaxValue();
+        req.query.form.category = Category.defaultCategory();
+    }
+
+    if (!Array.isArray(req.query.form.category)) {
+        req.query.form.category = [req.query.form.category];
+    }
+    next();
+}
