@@ -1,0 +1,5 @@
+<form action="/charges" method="post">
+    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="{{ STRIPE_PK_TEST }}" data-amount="100" data-name="Stripe Node Test" data-description="Widget" data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+        data-locale="auto"></script>
+    <input type="hidden" name="amount" id="amount" value="100">
+</form>

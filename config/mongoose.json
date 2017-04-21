@@ -1,1 +1,13 @@
-mongoose.json
+{
+    "development": {
+        "database": "mimirs_market_dev",
+        "host": "localhost"
+    },
+    "test": {
+        "database": "mimirs_market_test",
+        "host": "localhost"
+    },
+    "production": {
+        "use_env_variable": "MONGO_URL"
+    }
+}

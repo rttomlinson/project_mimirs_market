@@ -27,11 +27,7 @@ router.get('/', parseQueryData, (req, res, next) => {
         .then(() => {
             return Product.findAll({
                 include: [{
-                    model: Category,
-                    where: {
-                        name: { in: category
-                        }
-                    }
+                    model: Category
                 }],
                 where: {
                     name: {
@@ -54,7 +50,7 @@ router.get('/', parseQueryData, (req, res, next) => {
                 categories
             });
         })
-        .catch((err) => next(err));
+        .catch(next);
 });
 
 

@@ -1,0 +1,93 @@
+<h1 class="text-center">Admin Analytics Page</h1>
+<div class="row">
+    <div class="{{ xsColWidth 4 }} col-xs-offset-1">
+        <h2>Totals</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Total Revenue</td>
+                    <td>{{ USDollars totalsTable.totalRevenue}}</td>
+                </tr>
+                <tr>
+                    <td>Units Sold</td>
+                    <td>{{totalsTable.totalUnitsSold}}</td>
+                </tr>
+                <tr>
+                    <td>Customers</td>
+                    <td>{{totalsTable.totalCustomers}}</td>
+                </tr>
+                <tr>
+                    <td>Products</td>
+                    <td>{{totalsTable.totalProducts}}</td>
+                </tr>
+                <tr>
+                    <td>Categories</td>
+                    <td>{{totalsTable.totalCategories}}</td>
+                </tr>
+                <tr>
+                    <td>States served</td>
+                    <td>{{totalsTable.statesSoldTo}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Revenue by Product</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each totalsTable.revenueByProduct as |RB|}}
+                <tr>
+                    <td>{{ RB.identifier }}</td>
+                    <td>{{ USDollars RB.total }}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+    <div class="{{ xsColWidth 4 }} col-xs-offset-2">
+        <h2>Revenue by State</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each totalsTable.revenueByState as |RB|}}
+                <tr>
+                    <td>{{ RB.identifier }}</td>
+                    <td>{{ USDollars RB.total }}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <h2>Revenue by Category</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each totalsTable.revenueByCategory as |RB|}}
+                <tr>
+                    <td>{{ RB.identifier }}</td>
+                    <td>{{ USDollars RB.total }}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+.top-right-absolute {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.margin-bot-10 {
+    margin-bottom: 10px
+}
+
+.gray-border-2 {
+    border: 2px solid gray;
+}
+
+.float-right {
+    float: right;
+}

@@ -11,7 +11,7 @@ if (process.env.NODE_ENV !== 'production') {
 /////////////////////////////////////////////
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({
-    extended: false
+    extended: true
 }));
 
 ////////////////////////////////////////////
@@ -40,6 +40,19 @@ app.use(session({
     cookie: {}
 }));
 
+//Set default values on the currentUser controller
+app.use(function(req, res, next) {
+    //currentUser not yet defined
+    //first set default for that
+    if (!req.session.currentUser) {
+        req.session.currentUser = {};
+    }
+    if (!req.session.currentUser.cart) {
+        req.session.currentUser.cart = [];
+    }
+    next();
+});
+
 app.use((req, res, next) => {
     res.locals.session = req.session;
     res.locals.currentUser = req.session.currentUser;
@@ -50,6 +63,20 @@ app.use((req, res, next) => {
 //Serve static files
 /////////////////////////////////////////////
 app.use(express.static(__dirname + "/public"));
+/////////////////////////////////////
+//Setup Mongoose Connection
+////////////////////////////////////
+var mongoose = require('mongoose');
+app.use((req, res, next) => {
+    if (mongoose.connection.readyState) {
+        next();
+    }
+    else {
+        require('./mongo')().then(() => next());
+    }
+});
+
+
 
 
 // Put this AFTER your body-parser set up
@@ -97,7 +124,10 @@ app.use(flash());
 const productsRouter = require('./routes/products');
 const cartRouter = require('./routes/cart');
 const checkoutRouter = require('./routes/checkout');
-
+const chargesRouter = require('./routes/charges');
+const adminRouter = require('./routes/admin');
+app.use('/admin', adminRouter);
+app.use('/charges', chargesRouter);
 app.use('/checkout', checkoutRouter);
 app.use('/products', productsRouter);
 app.use('/cart', cartRouter);

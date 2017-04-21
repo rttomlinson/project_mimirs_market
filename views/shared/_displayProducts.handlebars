@@ -1,20 +1,20 @@
-{{#each products as |product|}}
-    <div class="{{ xsColWidth ../colWidth }}">
-        <a href="{{ productPath product.id }}">
-            <div class="product-image">
-                <img class="img-responsive" src="{{ product.image_url }}">
-            </div>
-            <div>
-                {{ product.name }}
-            </div>
-            <div>
-                {{ product.price }}
-            </div>
-        </a>
-        <form action="{{cartIncPath product.id}}" method="post">
-            <input type="hidden" name="name" value="{{product.name}}">
-            <input type="hidden" name="price" value="{{product.price}}">
-            <button type="submit">Add to Cart</button>
-        </form>
+<div class="{{ xsColWidth colWidth }}">
+    <div class="row">
+        {{#each products as |product|}}
+        <div class="{{ xsColWidth ../innerColWidth }} well">
+            <a href="{{ productPath product.id }}">
+                <div class="product-image">
+                    <img class="img-responsive" src="{{ product.image_url }}">
+                </div>
+                <h3>
+                    {{ product.name }}
+                </h3>
+                <p>
+                    ${{ product.price }}
+                </p>
+            </a>
+            {{> shared/_addToCart productId=product.id }}
+        </div>
+        {{/each}}
     </div>
-{{/each}}
+</div>
