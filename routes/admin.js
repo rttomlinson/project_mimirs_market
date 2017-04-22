@@ -238,8 +238,8 @@ router.get('/analytics', function(req, res, next) {
                                     //CategoryObj has names of category corresponding to its ID
                                     identifier: categoryObj[category._id],
                                     total: category.total
-                                }
-                            })
+                                };
+                            });
                         });
                 });
         })
@@ -262,18 +262,10 @@ module.exports = router;
 
 
 
-/**Turns an object into an array
- *
- */
-function formatItems(items) {
-    let keys = Object.keys(items);
-    return keys.map((key) => {
-        return items[key];
-    });
-}
 
 
 
+////////////////Data structure//////////////
 /**
  * totalsTable = {
      totalRevenue: <Number>,

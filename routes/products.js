@@ -6,36 +6,22 @@ const Category = require('../models/sequelize').Category;
 
 
 router.get('/', parseQueryData, (req, res, next) => {
-    //Get data from query form
-    let category = req.query.form.category;
-    let search = req.query.form.search;
-    let minPrice = req.query.form.minPrice;
-    let maxPrice = req.query.form.maxPrice;
+
 
     //homepage - products display
     let categories;
 
     Category.findAll({
-            attributes: ['name'],
+            attributes: ['name', 'id'],
             raw: true
         })
         .then((_categories) => {
-            categories = _categories.map((el) => {
-                return el.name;
-            });
+            categories = _categories;
         })
         .then(() => {
             return Product.findAll({
-                include: [{
-                    model: Category
-                }],
                 where: {
-                    name: {
-                        $iLike: `%${search}%`
-                    },
-                    price: {
-                        $between: [minPrice, maxPrice]
-                    }
+                    $and: req.session.productsQueryString
                 },
                 raw: true
             });
@@ -86,29 +72,32 @@ router.get('/:id', function(req, res, next) {
 module.exports = router;
 
 function parseQueryData(req, res, next) {
+    req.session.productsQuery = '[';
+    let pqs = req.session.productsQuery;
+
     if (req.query.form) {
-        req.query.form.search = req.query.form.search || Product.defaultSearchValue();
-        req.query.form.minPrice = req.query.form.minPrice || Product.defaultMinValue();
-        req.query.form.maxPrice = req.query.form.maxPrice || Product.defaultMaxValue();
+        //check for search
+        if (req.query.form.search) {
+            `{name: { $iLike: "%${req.query.form.search}%"}},`
+
+        }
+        if (req.query.form.minPrice) {
+            `{price: { $gt : ${req.query.form.minPrice}}},`
+
+        }
+        if (req.query.form.maxPrice) {
+            `{price: { $lt : ${req.query.form.maxPrice}}},`
+
+        }
         if (req.query.form.category) {
-            if (req.query.form.category === "all") {
-                req.query.form.category = Category.defaultCategory();
+            if (req.query.form.category !== "all") {
+                `{category_id: ${req.query.form.category}}`
             }
         }
-        else {
-            req.query.form.category = Category.defaultCategory();
-        }
     }
-    else {
-        req.query.form = {};
-        req.query.form.search = Product.defaultSearchValue();
-        req.query.form.minPrice = Product.defaultMinValue();
-        req.query.form.maxPrice = Product.defaultMaxValue();
-        req.query.form.category = Category.defaultCategory();
-    }
-
-    if (!Array.isArray(req.query.form.category)) {
-        req.query.form.category = [req.query.form.category];
-    }
+    //check for trailing comma and get rid of it if necessary
+    if ()
+        pqs += ']';
+    req.session.productsQuery = JSON.parse(pqs);
     next();
 }

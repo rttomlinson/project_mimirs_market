@@ -24,7 +24,7 @@ router.post('/inc/:id', function(req, res, next) {
         //If cart doesn't exist and want to increase
         //attempt to find matching item id in cart
         let item = userCart.find((product) => {
-            return itemId === product._id;
+            return itemId === product.id;
         });
         if (!item) {
             Product.findById(itemId, {
@@ -64,7 +64,7 @@ router.post('/update/:id', function(req, res, next) {
     else {
         let userCart = req.session.currentUser.cart;
         let item = userCart.find((product) => {
-            return itemId === product._id;
+            return itemId === product.id;
         });
         item.quantity = +quantity;
         res.redirect(h.cartPath());
