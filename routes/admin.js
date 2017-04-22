@@ -52,15 +52,35 @@ async function getAnalyticsData() {
     let totalsTable = {};
     //Query for total revenue
     totalsTable.totalRevenue = await h.getTotalRevenue();
+    console.log("calling totalREvenue");
+
     totalsTable.totalUnitsSold = await h.getUnitsSold();
+    console.log("calling unitsSold");
+
     totalsTable.totalTransactions = await h.getTotalTransactions();
+    console.log("calling totalTransactions");
+
     totalsTable.totalCustomers = await h.getTotalCustomers();
+    console.log("calling totalCustomer");
+
     totalsTable.totalProducts = await h.getTotalProducts();
+    console.log("calling totalProducts");
+
     totalsTable.totalCategories = await h.getTotalCategories();
+    console.log("calling totalCategories");
+
     totalsTable.statesSoldTo = await h.getStatesSoldTo();
+    console.log("calling getStatesSoldTo");
+
     totalsTable.revenueByProduct = await h.getRevenueByProduct();
+    console.log("calling getRevenueByProduct");
+
     totalsTable.revenueByState = await h.getRevenueByState();
+    console.log("calling getRevenueByState");
+
     totalsTable.revenueByCategory = await h.getRevenueByCategory();
+    console.log("calling getRevenueByCategory");
+
 
     return totalsTable;
 
