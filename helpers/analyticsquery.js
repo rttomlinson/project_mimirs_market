@@ -5,12 +5,9 @@ let sequelizeModels = require('../models/sequelize');
 let Product = sequelizeModels.Product;
 let Category = sequelizeModels.Category;
 let Order = mongooseModels.Order;
-let moneyHelper = require('../helpers/money');
-let checkoutHelper = require('../helpers/checkout');
-let timeHelper = require('../helpers/time');
-
-
-
+let moneyHelper = require('./money');
+let checkoutHelper = require('./checkout');
+let timeHelper = require('./time');
 
 let AnalyticsHelper = {};
 

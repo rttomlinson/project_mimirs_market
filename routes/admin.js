@@ -26,6 +26,7 @@ router.get('/order/:id', function(req, res, next) {
 });
 
 router.get('/analytics', function(req, res, next) {
+    console.log("inside router for analytics");
 
     getAnalyticsData()
         .then((totalsTable) => {
@@ -41,6 +42,7 @@ module.exports = router;
 
 
 async function getAnalyticsData() {
+    console.log("calling getAnalyticsData");
     //Query to get totals of all orders
     let totalsTable = {};
     //Query for total revenue
