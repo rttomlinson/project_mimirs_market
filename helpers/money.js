@@ -8,5 +8,9 @@ Formatter.USDollars = function(num) {
     });
 };
 
+Formatter.centsToDollars = function(num) {
+    return Math.round(num) / 100;
+};
+
 
 module.exports = Formatter;

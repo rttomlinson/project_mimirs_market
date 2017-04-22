@@ -1,53 +1,53 @@
 {
-  "name": "project_mimirs_market",
-  "version": "1.0.0",
-  "description": "A Viking eCommerce store for Thunder Gods that like to buy \"Antique Wooden Pizzas\"",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "sql:migrate:undo": "npm run sql db:migrate:undo:all",
-    "sql:migrate": "npm run sql db:migrate",
-    "sql:seed:undo": "npm run sql db:seed:undo:all",
-    "sql:seed": "npm run sql db:seed:all",
-    "sql:s": "npm run sql:migrate:undo && npm run sql:migrate && npm run sql:seed",
-    "mg:seed": "node seeds/mongoose",
-    "console": "node repl.js",
-    "c": "node repl.js",
-    "sql": "./node_modules/sequelize-cli/bin/sequelize",
-    "start": "node app.js",
-    "start-dev": "./node_modules/nodemon/bin/nodemon.js app.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rttomlinson/project_mimirs_market.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/rttomlinson/project_mimirs_market/issues"
-  },
-  "homepage": "https://github.com/rttomlinson/project_mimirs_market#readme",
-  "dependencies": {
-    "bluebird": "^3.5.0",
-    "body-parser": "^1.17.1",
-    "currency-formatter": "^1.2.1",
-    "express": "^4.15.2",
-    "express-flash-messages": "^0.1.1",
-    "express-handlebars": "^3.0.0",
-    "express-session": "^1.15.2",
-    "moment": "^2.18.1",
-    "mongoose": "^4.9.5",
-    "path": "^0.12.7",
-    "pg": "^6.1.5",
-    "pg-hstore": "^2.3.2",
-    "sequelize": "^3.30.4",
-    "sequelize-cli": "^2.7.0",
-    "stripe": "^4.18.0"
-  },
-  "devDependencies": {
-    "dotenv": "^4.0.0",
-    "faker": "^4.1.0",
-    "nodemon": "^1.11.0"
-  }
+    "name": "project_mimirs_market",
+    "version": "1.0.0",
+    "description": "A Viking eCommerce store for Thunder Gods that like to buy \"Antique Wooden Pizzas\"",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "sql:migrate:undo": "npm run sql db:migrate:undo:all",
+        "sql:migrate": "npm run sql db:migrate",
+        "sql:seed:undo": "npm run sql db:seed:undo:all",
+        "sql:seed": "npm run sql db:seed:all",
+        "sql:s": "npm run sql:migrate:undo && npm run sql:migrate && npm run sql:seed",
+        "mg:seed": "node seeds/mongoose",
+        "console": "node repl.js",
+        "c": "node repl.js",
+        "sql": "./node_modules/sequelize-cli/bin/sequelize",
+        "start": "node app.js",
+        "start-dev": "./node_modules/nodemon/bin/nodemon.js app.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rttomlinson/project_mimirs_market.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/rttomlinson/project_mimirs_market/issues"
+    },
+    "homepage": "https://github.com/rttomlinson/project_mimirs_market#readme",
+    "dependencies": {
+        "bluebird": "^3.5.0",
+        "body-parser": "^1.17.1",
+        "currency-formatter": "^1.2.1",
+        "express": "^4.15.2",
+        "express-flash-messages": "^0.1.1",
+        "express-handlebars": "^3.0.0",
+        "express-session": "^1.15.2",
+        "moment": "^2.18.1",
+        "mongoose": "^4.9.5",
+        "path": "^0.12.7",
+        "pg": "^6.1.5",
+        "pg-hstore": "^2.3.2",
+        "sequelize": "^3.30.4",
+        "sequelize-cli": "^2.7.0",
+        "stripe": "^4.18.0"
+    },
+    "devDependencies": {
+        "dotenv": "^4.0.0",
+        "faker": "^4.1.0",
+        "nodemon": "^1.11.0"
+    }
 }

@@ -7,6 +7,8 @@ let Category = sequelizeModels.Category;
 let Order = mongooseModels.Order;
 let moneyHelper = require('../helpers/money');
 let checkoutHelper = require('../helpers/checkout');
+let timeHelper = require('../helpers/time');
+
 
 
 
@@ -20,9 +22,9 @@ AnalyticsHelper.getOrders = async function() {
     orders = orders.map((order) => {
         let tempObj = {};
         tempObj._id = order._id;
-        tempObj.checkoutDate = order.paymentInfo.checkoutDate;
+        tempObj.checkoutDate = timeHelper.secondsToDate(order.paymentInfo.checkoutDate);
         tempObj.description = checkoutHelper.itemNames(order.orderItems);
-        tempObj.revenue = moneyHelper.USDollars(order.paymentInfo.totalCharge);
+        tempObj.revenue = moneyHelper.USDollars(moneyHelper.centsToDollars(order.paymentInfo.totalCharge));
         tempObj.customerEmail = order.billingInfo.email;
         tempObj.customerState = order.billingInfo.address.state;
         return tempObj;

@@ -63,8 +63,8 @@ module.exports = () => {
                         }
                     },
                     paymentInfo: {
-                        checkoutDate: faker.date.recent(),
-                        totalCharge: h.itemsTotal(cart),
+                        checkoutDate: Math.floor(Math.random() * 1492879911),
+                        totalCharge: h.itemsTotal(cart) * 100,
                         stripeToken: "tok_" + faker.random.uuid(),
                         cardType: "Visa"
                     }

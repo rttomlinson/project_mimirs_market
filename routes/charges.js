@@ -27,6 +27,7 @@ router.post('/', (req, res, next) => {
         })
         .then((charge) => {
             //extract
+            console.log("successful charge", charge);
             //get card type and amount here
             // ... Save charge and session data
             return Order.findByIdAndUpdate({
