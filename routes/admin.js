@@ -10,7 +10,12 @@ router.get('/orders', function(req, res, next) {
                 orders
             });
         })
-        .catch(next);
+        .catch((err) => {
+            console.log("An error occurred while getting data");
+            console.log(err.message);
+            console.log(err.stack);
+            next(err);
+        });
 });
 
 router.get('/order/:id', function(req, res, next) {
