@@ -2,7 +2,6 @@
 
 var fs = require('fs');
 var path = require('path');
-var express = require('express');
 var basename = path.basename(__filename);
 
 

@@ -7,8 +7,7 @@ var {
 } = process.env;
 var stripe = require('stripe')(STRIPE_SK_TEST);
 const Order = require('../models/mongoose').Order;
-
-
+const h = require('../helpers').registered;
 
 router.get('/', (req, res, next) => {
     res.render('charges/new', {
