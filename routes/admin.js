@@ -1,15 +1,9 @@
 "use strict";
 const express = require('express');
 let router = express.Router();
-let mongooseModels = require('../models/mongoose');
-let sequelizeModels = require('../models/sequelize');
-let Product = sequelizeModels.Product;
-let Category = sequelizeModels.Category;
-let Order = mongooseModels.Order;
 let h = require('../helpers').registered;
 
 router.get('/orders', function(req, res, next) {
-
     h.getOrders()
         .then((orders) => {
             res.render('admin/index', {
@@ -21,7 +15,6 @@ router.get('/orders', function(req, res, next) {
 
 router.get('/order/:id', function(req, res, next) {
     let id = req.params.id;
-
     h.getOrder(id)
         .then((orderInfo) => {
             console.log("orderInfo", orderInfo);
@@ -31,7 +24,6 @@ router.get('/order/:id', function(req, res, next) {
         })
         .catch(next);
 });
-
 
 router.get('/analytics', function(req, res, next) {
 
