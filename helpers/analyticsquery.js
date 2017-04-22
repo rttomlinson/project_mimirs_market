@@ -59,6 +59,7 @@ AnalyticsHelper.getUnitsSold = async function() {
             let totalUnits = keys.reduce((acc, key) => {
                 return acc += this.orderItems[key].quantity;
             }, 0);
+            console.log("about to call emit", emit);
             emit(null, totalUnits);
         },
         reduce: function(keys, values) {

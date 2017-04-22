@@ -1,7 +1,5 @@
 'use strict';
 
-
-
 var fs = require('fs');
 var path = require('path');
 var Sequelize = require('sequelize');
@@ -12,12 +10,12 @@ if (env !== 'production') {
 }
 var config = require(__dirname + '/../../config/sequelize.js')[env];
 var db = {};
-
+let sequelize;
 if (config.use_env_variable) {
-    var sequelize = new Sequelize(process.env[config.use_env_variable]);
+    sequelize = new Sequelize(process.env[config.use_env_variable]);
 }
 else {
-    var sequelize = new Sequelize(config.database, config.username, config.password, config);
+    sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
 fs
