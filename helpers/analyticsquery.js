@@ -53,6 +53,8 @@ AnalyticsHelper.getTotalRevenue = async function() {
 
 AnalyticsHelper.getUnitsSold = async function() {
     let orderInfo = await Order.aggregate([{
+        $unwind: "$orderItems"
+    }, {
         $match: {
             completed: true
         }
@@ -60,7 +62,7 @@ AnalyticsHelper.getUnitsSold = async function() {
         $group: {
             _id: null,
             total: {
-                $sum: '$paymentInfo.totalCharge'
+                $sum: "$orderItems.quantity"
             }
         }
     }]);
@@ -78,8 +80,8 @@ AnalyticsHelper.getUnitsSold = async function() {
     //         return Array.sum(values);
     //     }
     // });
-    console.log("orderInfo", orderInfo);
-    return orderInfo[0].value;
+    // console.log("orderInfo", orderInfo);
+    // return orderInfo[0].value;
 };
 
 
