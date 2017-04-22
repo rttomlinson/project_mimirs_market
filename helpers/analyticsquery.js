@@ -52,20 +52,32 @@ AnalyticsHelper.getTotalRevenue = async function() {
 };
 
 AnalyticsHelper.getUnitsSold = async function() {
-    let orderInfo = await Order.mapReduce({
-        map: function() {
-            //loop through orderItems and grab quantities
-            let keys = Object.keys(this.orderItems);
-            let totalUnits = keys.reduce((acc, key) => {
-                return acc += this.orderItems[key].quantity;
-            }, 0);
-            console.log("about to call emit", emit);
-            emit(null, totalUnits);
-        },
-        reduce: function(keys, values) {
-            return Array.sum(values);
+    let orderInfo = await Order.aggregate([{
+        $match: {
+            completed: true
         }
-    });
+    }, {
+        $group: {
+            _id: null,
+            total: {
+                $sum: '$paymentInfo.totalCharge'
+            }
+        }
+    }]);
+    return orderInfo[0].total;
+    // let orderInfo = await Order.mapReduce({
+    //     map: function() {
+    //         //loop through orderItems and grab quantities
+    //         let keys = Object.keys(this.orderItems);
+    //         let totalUnits = keys.reduce((acc, key) => {
+    //             return acc += this.orderItems[key].quantity;
+    //         }, 0);
+    //         emit(null, totalUnits);
+    //     },
+    //     reduce: function(keys, values) {
+    //         return Array.sum(values);
+    //     }
+    // });
     console.log("orderInfo", orderInfo);
     return orderInfo[0].value;
 };
