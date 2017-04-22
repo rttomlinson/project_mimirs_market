@@ -6,11 +6,8 @@ const Category = require('../models/sequelize').Category;
 
 
 router.get('/', parseQueryData, (req, res, next) => {
-
-
     //homepage - products display
     let categories;
-
     Category.findAll({
             attributes: ['name', 'id'],
             raw: true
@@ -21,7 +18,7 @@ router.get('/', parseQueryData, (req, res, next) => {
         .then(() => {
             return Product.findAll({
                 where: {
-                    $and: req.session.productsQueryString
+                    $and: req.session.productsQuery
                 },
                 raw: true
             });
@@ -40,7 +37,6 @@ router.get('/', parseQueryData, (req, res, next) => {
 });
 
 
-
 router.get('/:id', function(req, res, next) {
     let productId = req.params.id;
     let product;
@@ -53,7 +49,7 @@ router.get('/:id', function(req, res, next) {
                 where: {
                     category_id: product.category_id,
                     id: {
-                        $ne: product.id
+                        $ne: productId
                     }
                 },
                 limit: 3
@@ -68,36 +64,37 @@ router.get('/:id', function(req, res, next) {
         .catch(next);
 });
 
-
 module.exports = router;
 
 function parseQueryData(req, res, next) {
-    req.session.productsQuery = '[';
-    let pqs = req.session.productsQuery;
+    let pqs = '[';
 
     if (req.query.form) {
         //check for search
         if (req.query.form.search) {
-            `{name: { $iLike: "%${req.query.form.search}%"}},`
+            pqs += `{"name": { "$iLike": "%${req.query.form.search}%"}},`;
 
         }
         if (req.query.form.minPrice) {
-            `{price: { $gt : ${req.query.form.minPrice}}},`
+            pqs += `{"price": { "$gt" : ${req.query.form.minPrice}}},`;
 
         }
         if (req.query.form.maxPrice) {
-            `{price: { $lt : ${req.query.form.maxPrice}}},`
+            pqs += `{"price": { "$lt" : ${req.query.form.maxPrice}}},`;
 
         }
         if (req.query.form.category) {
             if (req.query.form.category !== "all") {
-                `{category_id: ${req.query.form.category}}`
+                pqs += `{"category_id": ${req.query.form.category}}`;
             }
         }
     }
     //check for trailing comma and get rid of it if necessary
-    if ()
-        pqs += ']';
+    if (pqs.slice(-1) === ',') {
+        pqs = pqs.slice(0, -1);
+    }
+    pqs += ']';
+    console.log("pqs", pqs);
     req.session.productsQuery = JSON.parse(pqs);
     next();
 }

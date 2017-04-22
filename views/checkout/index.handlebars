@@ -2,7 +2,6 @@
 <div class="row">
     <div class="{{ xsColWidth 5 }}">
         <h3>Billing Info</h3>
-
         <form action="/checkout" method="post" id="billing-info">
             <!-- User First Name -->
             <div class="form-group">
@@ -41,7 +40,6 @@
                 </select>
             </div>
         </form>
-
     </div>
     <div class={{ xsColWidth 5 }}>
         <h3>Order Items</h3>
@@ -63,4 +61,5 @@
         <a href="{{ cartPath }}" class="btn btn-danger">Return to cart</a>
         <button type="submit" class="btn btn-info" form="billing-info">Go to payment page</button>
     </div>
+
 </div>

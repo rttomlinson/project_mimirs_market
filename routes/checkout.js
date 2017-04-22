@@ -2,21 +2,22 @@
 const express = require('express');
 const router = express.Router();
 const Order = require('../models/mongoose').Order;
-
+var {
+    STRIPE_SK_TEST,
+    STRIPE_PK_TEST
+} = process.env;
 
 router.get('/', (req, res, next) => {
     res.render('checkout/index');
 });
 
-
 router.post('/', (req, res, next) => {
-    //save billing into
+    //save billing info
     let billingInfo = req.body.form;
     let fname = billingInfo.fname;
     let lname = billingInfo.lname;
     let email = billingInfo.email;
     let address = billingInfo.address;
-
 
     //save billing info mongoose
     //... Start using the MongoDB connection
@@ -39,6 +40,5 @@ router.post('/', (req, res, next) => {
             res.redirect('/charges');
         });
 });
-
 
 module.exports = router;

@@ -18,8 +18,6 @@ router.get('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
     var charge = req.body;
-
-    console.log("charge", charge);
     //grab stripe Token here
     req.session.currentUser.stripeToken = charge.stripeToken;
     stripe.charges.create({
@@ -29,10 +27,7 @@ router.post('/', (req, res, next) => {
             source: charge.stripeToken
         })
         .then((charge) => {
-            console.log("charge", charge);
             //extract
-
-            //convert data in cart to an array
             //get card type and amount here
             // ... Save charge and session data
             return Order.findByIdAndUpdate({
@@ -56,9 +51,7 @@ router.post('/', (req, res, next) => {
             req.session.currentUser.cart = [];
         })
         .then(() => {
-
             res.redirect('/charges/complete');
-
         })
         .catch(next);
 });

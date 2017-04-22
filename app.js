@@ -49,6 +49,7 @@ app.use(function(req, res, next) {
     }
     if (!req.session.currentUser.cart) {
         req.session.currentUser.cart = [];
+        req.session.currentUser._cartIndex = {};
     }
     next();
 });
