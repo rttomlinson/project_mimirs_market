@@ -1,7 +1,10 @@
-require('dotenv').config();
-var username = process.env.POSTGRESQL_USERNAME;
-var password = process.env.POSTGRESQL_PASSWORD;
-
+var username;
+var password;
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
+    username = process.env.POSTGRESQL_USERNAME;
+    password = process.env.POSTGRESQL_PASSWORD;
+}
 module.exports = {
     "development": {
         "username": username,
@@ -11,7 +14,7 @@ module.exports = {
         "dialect": "postgres"
     },
     "test": {
-        "username": "davehail",
+        "username": "rttomlinson",
         "password": null,
         "database": "mimirs_market_test",
         "host": "127.0.0.1",
@@ -21,4 +24,4 @@ module.exports = {
         "use_env_variable": "POSTGRES_URL",
         "dialect": "postgres"
     }
-}
+};
