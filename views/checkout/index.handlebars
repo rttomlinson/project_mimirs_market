@@ -1,6 +1,6 @@
 <h2>Checkout</h2>
 <div class="row">
-    <div class="{{ xsColWidth 5 }}">
+    <div class="{{ xsColWidth 6 }}">
         <h3>Billing Info</h3>
         <form action="/checkout" method="post" id="billing-info">
             <!-- User First Name -->
@@ -41,25 +41,40 @@
             </div>
         </form>
     </div>
-    <div class={{ xsColWidth 5 }}>
+    <div class={{ xsColWidth 6 }}>
         <h3>Order Items</h3>
-        {{#each currentUser.cart as |product| }}
-        <div class="row margin-bot-10">
-            <div class="{{xsColWidth 2}}">
-                <img class="img-responsive" src={{product.image_url}}>
-            </div>
-            <div class="{{xsColWidth 10}}">
-                <div>
-                    {{product.name}}: <span class="float-right">${{product.price}} x {{product.quantity}} = ${{ itemSubtotal product.price product.quantity}}</span>
-                </div>
-            </div>
-        </div>
-        {{/each}}
+        <table class="table">
+            <thead class="thead-inverse">
+                <tr>
+                    <th></th>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th></th>
+                    <th>Price</th>
+                    <th></th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each currentUser.cart as |product|}}
+                <tr>
+                    <td>
+                        <a href="{{ productPath product.id }}"><img class="img-responsive" src="{{ product.image_url }}"></a>
+                    </td>
+                    <td><a href="{{ productPath product.id}}">{{ product.name }}</a></td>
+                    <td>{{product.quantity}}</td>
+                    <td>x</td>
+                    <td>{{ USDollars product.price}}</td>
+                    <td>=</td>
+                    <td>{{ itemSubtotal product.price product.quantity}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
         <div class="text-right lead text-danger">
-            Grand total: ${{ itemsTotal currentUser.cart }}
+            Grand total: {{ itemsTotal currentUser.cart }}
         </div>
-        <a href="{{ cartPath }}" class="btn btn-danger">Return to cart</a>
-        <button type="submit" class="btn btn-info" form="billing-info">Go to payment page</button>
+        <button type="submit" class="btn btn-info pull-right" form="billing-info">Go to payment page</button>
+        <a href="{{ cartPath }}" class="btn btn-danger pull-right">Return to cart</a>
     </div>
-
 </div>

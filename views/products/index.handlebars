@@ -1,5 +1,10 @@
 {{> shared/_flash }}
 
 <div class="row">
-    {{> shared/_queryform colWidth=2}} {{> shared/_displayProducts products=products colWidth=10 innerColWidth=6}}
+    <div class="{{xsColWidth}}">
+        {{> shared/_queryform colWidth=12}}
+    </div>
+    <div class="{{xsColWidth}}">
+        {{> shared/_displayProducts currentUser=currentUser products=products colWidth=6}}
+    </div>
 </div>

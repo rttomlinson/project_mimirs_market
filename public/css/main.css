@@ -1,3 +1,7 @@
+.inherit-padding {
+    padding: inherit;
+}
+
 .top-right-absolute {
     position: absolute;
     right: 0;
@@ -8,10 +12,36 @@
     margin-bottom: 10px
 }
 
+.margin-bot-20 {
+    margin-bottom: 20px
+}
+
+.margin-around-10 {
+    margin: 10px;
+}
+
 .gray-border-2 {
     border: 2px solid gray;
 }
 
 .float-right {
     float: right;
+}
+
+.d-inline-block {
+    display: inline-block;
+}
+
+#search-button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.rel-position {
+    position: relative;
+}
+
+.font-size-24 {
+    font-size: 24px;
 }

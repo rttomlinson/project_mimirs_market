@@ -7,12 +7,9 @@ function createRandomImage(name) {
     let queryString = name.split(" ");
     //recomine with commas
     queryString = queryString.join(",");
-    let src = `http://loremflickr.com/320/240/${queryString}`;
+    let src = `http://loremflickr.com/540/405/${queryString}`;
     return src;
 }
-
-
-
 
 module.exports = {
     up: function(queryInterface, Sequelize) {

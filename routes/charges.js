@@ -49,6 +49,8 @@ router.post('/', (req, res, next) => {
             //redirect to the products page
             req.session.currentUser = {};
             req.session.currentUser.cart = [];
+            req.session.currentUser._cartIndex = {};
+
         })
         .then(() => {
             res.redirect('/charges/complete');

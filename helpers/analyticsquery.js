@@ -5,9 +5,12 @@ let sequelizeModels = require('../models/sequelize');
 let Product = sequelizeModels.Product;
 let Category = sequelizeModels.Category;
 let Order = mongooseModels.Order;
-let moneyHelper = require('./money');
-let checkoutHelper = require('./checkout');
-let timeHelper = require('./time');
+let moneyHelper = require('../helpers/money');
+let checkoutHelper = require('../helpers/checkout');
+let timeHelper = require('../helpers/time');
+
+
+
 
 let AnalyticsHelper = {};
 
@@ -52,36 +55,21 @@ AnalyticsHelper.getTotalRevenue = async function() {
 };
 
 AnalyticsHelper.getUnitsSold = async function() {
-    let orderInfo = await Order.aggregate([{
-        $unwind: "$orderItems"
-    }, {
-        $match: {
-            completed: true
+    let orderInfo = await Order.mapReduce({
+        map: function() {
+            //loop through orderItems and grab quantities
+            let keys = Object.keys(this.orderItems);
+            let totalUnits = keys.reduce((acc, key) => {
+                return acc += this.orderItems[key].quantity;
+            }, 0);
+            emit(null, totalUnits);
+        },
+        reduce: function(keys, values) {
+            return Array.sum(values);
         }
-    }, {
-        $group: {
-            _id: null,
-            total: {
-                $sum: "$orderItems.quantity"
-            }
-        }
-    }]);
-    return orderInfo[0].total;
-    // let orderInfo = await Order.mapReduce({
-    //     map: function() {
-    //         //loop through orderItems and grab quantities
-    //         let keys = Object.keys(this.orderItems);
-    //         let totalUnits = keys.reduce((acc, key) => {
-    //             return acc += this.orderItems[key].quantity;
-    //         }, 0);
-    //         emit(null, totalUnits);
-    //     },
-    //     reduce: function(keys, values) {
-    //         return Array.sum(values);
-    //     }
-    // });
-    // console.log("orderInfo", orderInfo);
-    // return orderInfo[0].value;
+    });
+    console.log("orderInfo", orderInfo);
+    return orderInfo[0].value;
 };
 
 

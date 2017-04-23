@@ -1,19 +1,20 @@
+const moneyHelper = require('./money');
+
 var CheckoutHelper = {};
 
 
 CheckoutHelper.checkoutPath = () => '/checkout/';
 CheckoutHelper.itemSubtotal = (price, quantity) => {
-    return price * quantity;
+    return moneyHelper.USDollars(price * quantity);
 };
 CheckoutHelper.itemsTotal = (cart) => {
+    let total = 0;
     if (cart.length) {
-        return cart.reduce((acc, item) => {
+        total = cart.reduce((acc, item) => {
             return acc += item.quantity * item.price;
         }, 0);
     }
-    else {
-        return 0;
-    }
+    return moneyHelper.USDollars(total);
 };
 
 

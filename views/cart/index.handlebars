@@ -1,38 +1,59 @@
 <div class="row">
     <div class="{{xsColWidth 8}}">
         {{#each products as |product|}}
-        <div class="row margin-bot-10">
+        <div class="row">
             <div class="{{xsColWidth 4}}">
                 <a href="{{ productPath product.id }}">
                     <img class="img-responsive" src="{{ product.image_url }}">
                 </a>
             </div>
             <div class="{{xsColWidth 8}}">
-                <h3>
-                    {{ product.name }}
-                </h3>
-                <p>
-                    Unit Price: ${{ product.price }} x Quantity: {{ product.quantity }} = Subtotal: ${{ itemSubtotal product.price product.quantity}}
-                </p>
-                <form action="{{cartItemDestroyPath product.id}}" method="post">
-                    <button type="submit" class="btn btn-danger top-right-absolute"><span class="glyphicon glyphicon-trash" aria-label="delete-item"></span></button>
-                </form>
-                <form action="{{cartUpdatePath product.id}}" class="form-inline" method="post">
-                    <div class="form-group">
-                        <input class="form-control" type="number" name="quantity" value="{{ product.quantity }}">
-                        <button type="submit" class="btn btn-info">Change quantity</button>
-                    </div>
+                <div class="font-size-24">
+                    <a href="{{ productPath product.id}}">{{ product.name }}</a>
+                </div>
+                <table class="table">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th>Quantity</th>
+                            <th></th>
+                            <th>Price</th>
+                            <th></th>
+                            <th>Subtotal</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <form action="{{cartUpdatePath product.id}}" method="post">
+                                    <label class="sr-only" for="quantity">Quantity</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="quantity" name="quantity" value="{{ product.quantity }}">
+                                        <span class="input-group-btn"><button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-refresh"></span></button>
+                                        </span>
+                                    </div>
+
+                                </form>
+                            </td>
+                            <td>x</td>
+                            <td>{{ USDollars product.price}}</td>
+                            <td>=</td>
+                            <td>{{ itemSubtotal product.price product.quantity}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <form class="top-right-absolute inherit-padding" action="{{cartItemDestroyPath product.id}}" method="post">
+                    <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-label="delete-item"></span></button>
                 </form>
             </div>
         </div>
-        {{/each}}
+        <hr> {{/each}}
     </div>
-
     <div class="{{xsColWidth 4}} well">
         <h2>Today's total</h2>
         <div class="text-danger lead">
             <p>
-                ${{ itemsTotal currentUser.cart }}
+                {{ itemsTotal currentUser.cart }}
             </p>
             <a href="{{ checkoutPath }}" class="btn btn-primary btn-block">Checkout Now</a>
         </div>

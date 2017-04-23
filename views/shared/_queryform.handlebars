@@ -1,31 +1,49 @@
-<div class="{{xsColWidth colWidth}}">
-    <form action="/products" method="get">
-        <!-- Product Search -->
-        <div class="form-group">
-            <label for="search">Product</label>
-            <input type="search" class="form-control" name="form[search]" id="search">
-        </div>
-
-        <!-- Product Price -->
-        <div class="form-group">
-            <label for="minPrice">Minimum Price</label>
-            <input type="number" class="form-control" name="form[minPrice]" id="minPrice" min="0" max="999">
-        </div>
-        <div class="form-group">
-            <label for="maxPrice">Maximum Price</label>
-            <input type="number" class="form-control" name="form[maxPrice]" id="maxPrice" min="0" max="999">
-        </div>
-
-        <!-- Category -->
-        <div class="form-group">
-            <label for="category">Select Category</label>
-            <select class="form-control" id="category" name="form[category]">
+<div class="row">
+    <div class="{{xsColWidth colWidth}}">
+        <form action="/products" method="get" class="">
+            <!-- Product Search -->
+            <div class="rel-position">
+                <label for="search">Search products</label>
+                <input type="search" class="form-control" name="form[search]" id="search">
+                <button id="search-button" type="submit" class="btn btn-secondary"><span class="glyphicon glyphicon-search" aria-label="search"></span></button>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-warning dropdown-toggle" type="button" id="filters" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    Filters
+    <span class="caret"></span>
+  </button>
+                <ul class="dropdown-menu" aria-labelledby="filters">
+                    <li>
+                        <!-- Product Price -->
+                        <div class="form-group margin-around-10">
+                            <label for="minPrice">Min Price</label>
+                            <input type="number" class="form-control" name="form[minPrice]" id="minPrice" min="0" max="999">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-group margin-around-10">
+                            <label for="maxPrice">Max Price</label>
+                            <input type="number" class="form-control" name="form[maxPrice]" id="maxPrice" min="0" max="999">
+                        </div>
+                    </li>
+                    <li>
+                        <!-- Category -->
+                        <div class="form-group margin-around-10">
+                            <label for="category">Select Category</label>
+                            <select class="form-control" id="category" name="form[category]">
             <option>all</option>
             {{#each categories as |category|}}
               <option value="{{category.id}}">{{category.name}}</option>
             {{/each}}
             </select>
-        </div>
-        <button type="submit" class="btn btn-info">CONSUME</button>
-    </form>
+                        </div>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li> <button type="submit" class="btn btn-warning btn-block">Filter results</button>
+                    </li>
+                </ul>
+            </div>
+        </form>
+    </div>
 </div>
+<hr>
