@@ -9,6 +9,9 @@ const h = require('../helpers').registered;
 router.get('/', function(req, res, next) {
     //Get keys of the items in the cart
     let userCart = req.session.currentUser.cart;
+    if (userCart.length === 0) {
+        req.flash('notice', 'Shopping cart is empty!');
+    }
     res.render('cart/index', {
         products: userCart
     });
