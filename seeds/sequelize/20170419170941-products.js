@@ -7,7 +7,7 @@ function createRandomImage(name) {
     let queryString = name.split(" ");
     //recomine with commas
     queryString = queryString.join(",");
-    let src = `http://loremflickr.com/540/405/${queryString}`;
+    let src = `http://lorempixel.com/540/405/technics`;
     return src;
 }
 
