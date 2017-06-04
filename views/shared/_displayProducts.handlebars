@@ -1,16 +1,22 @@
 <div class="row">
     {{#each products as |product|}}
     <div class="{{ xsColWidth ../colWidth }} margin-bot-20">
-        <a href="{{ productPath product.id }}">
-            <div class="product-image">
-                <img class="img-responsive" src="{{ product.image_url }}">
+        <div class="row">
+            <div class="{{xsColWidth 4}}">
+                <a href="{{ productPath product.id }}">
+                    <div class="product-image">
+                        <img class="img-responsive" src="{{ product.image_url }}">
+                    </div>
+                </a>
             </div>
-            <h4>
-                {{ product.name }}
-                <span class="pull-right small">{{ USDollars product.price }}</span>
-            </h4>
-        </a>
-        {{#if (checkIfInCart ../currentUser._cartIndex product.id)}} {{> shared/_goToCart }} {{else}} {{> shared/_addToCart productId=product.id }} {{/if}}
+            <div class="{{xsColWidth 8}}">
+                <h4>
+                    {{ product.name }}
+                    <span class="pull-right small">{{ USDollars product.price }}</span>
+                </h4>
+                {{#if (checkIfInCart ../currentUser._cartIndex product.id)}} {{> shared/_goToCart }} {{else}} {{> shared/_addToCart productId=product.id }} {{/if}}
+            </div>
+        </div>
     </div>
     {{/each}}
 </div>
